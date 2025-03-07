@@ -3,7 +3,7 @@ from fastapi.responses import JSONResponse
 import json
 
 app = FastAPI()
-SONOLUS_HEADERS = {"Sonolus-Version": "0.8.10"}
+SONOLUS_HEADERS = {"Sonolus-Version": "0.8.11"}
 
 with open('serverinfo.json', 'r') as f:
     server_info = json.load(f)
