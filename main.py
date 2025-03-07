@@ -1,4 +1,5 @@
-from fastapi import FastAPI, Request
+from fastapi import FastAPI, Request, Response
+from pathlib import Path
 from fastapi.responses import JSONResponse
 import json
 
@@ -131,6 +132,18 @@ async def get_particles(particles_name: str):
             status_code=404,
             content={"message": f"list for type '{type}' not found"}
         )
+    
+@app.get("/sonolus/repository/{file_hash}")
+async def get_repository_file(file_hash: str):
+    file_path = Path(f"/sonolus/repository/{file_hash}")  # 拡張子なしのzip
+
+    if not file_path.exists():
+        return Response(content="File not found", status_code=404)
+
+    with file_path.open("rb") as f:
+        content = f.read()
+
+    return Response(content=content, media_type="application/zip")
 
 
 if __name__ == '__main__':
