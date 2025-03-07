@@ -1,4 +1,3 @@
-; filepath: c:\Users\pilim\Documents\dev\python-sonolusserver\README
 # Python Sonolus Server
 
 [English](#english) | [日本語](#japanese)
