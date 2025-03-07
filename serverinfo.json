@@ -1,1 +1,1 @@
-{"title":"Test","description":"This is Test Server","buttons":[{"type":"level"},{"type":"skin"},{"type":"background"},{"type":"effect"},{"type":"particle"},{"type":"engine"},{"type":"configuration"}],"configuration":{"options":[]}}
+{"title":"Test","description":"This is Test Server","buttons":[{"type":"level"},{"type":"skin"},{"type":"background"},{"type":"effect"},{"type":"particle"},{"type":"engine"},{"type":"configuration"}],"configuration":{"options":[]},"banner":{"hash":"hash","url":"/sonolus/repository/hash"}}
