@@ -142,7 +142,7 @@ async def get_particles(particles_name: str):
     
 @app.get("/sonolus/repository/{file_hash}")
 async def get_repository_file(file_hash: str):
-    file_path = Path(f"/sonolus/repository/{file_hash}")  # 拡張子なしのzip
+    file_path = Path(f"/sonolus/repository/{file_hash}")  
 
     if not file_path.exists():
         return Response(content="File not found", status_code=404)
