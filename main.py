@@ -9,6 +9,9 @@ SONOLUS_HEADERS = {"Sonolus-Version": "0.8.11"}
 with open('serverinfo.json', 'r') as f:
     server_info = json.load(f)
 
+with open('public/index.html', 'r',encoding='utf-8') as f:
+    index_html = f.read()
+
 @app.middleware("http")
 async def log_request(request: Request, call_next):
     print('--- Incoming Request ---')
@@ -22,6 +25,10 @@ async def log_request(request: Request, call_next):
     
     response = await call_next(request)
     return response
+
+@app.get("/")
+async def get_index():
+    return Response(content=index_html, media_type="text/html")
 
 # sonolusエンドポイント
 
