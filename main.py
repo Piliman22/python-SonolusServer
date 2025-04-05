@@ -2,12 +2,24 @@ from fastapi import FastAPI, Request, Response
 from pathlib import Path
 from fastapi.responses import JSONResponse,FileResponse
 from fastapi.staticfiles import StaticFiles
+from router import auth
 import json
+import os
+from os.path import join, dirname
+from dotenv import load_dotenv
+
+load_dotenv(verbose=True)
+
+dotenv_path = join(dirname(__file__), '.env')
+load_dotenv(dotenv_path)
+
+SONOLUS_VERSION = os.environ.get("SONOLUS_VERSION_HEADER")
 
 app = FastAPI()
-SONOLUS_HEADERS = {"Sonolus-Version": "0.8.12"}
+SONOLUS_HEADERS = {"Sonolus-Version": SONOLUS_VERSION}
 
 app.mount("/assets", StaticFiles(directory="public/assets"), name="assets")
+app.include_router(auth.router)
 
 with open('serverinfo.json', 'r') as f:
     server_info = json.load(f)
