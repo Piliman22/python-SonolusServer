@@ -1,10 +1,13 @@
 from fastapi import FastAPI, Request, Response
 from pathlib import Path
-from fastapi.responses import JSONResponse
+from fastapi.responses import JSONResponse,FileResponse
+from fastapi.staticfiles import StaticFiles
 import json
 
 app = FastAPI()
 SONOLUS_HEADERS = {"Sonolus-Version": "0.8.12"}
+
+app.mount("/assets", StaticFiles(directory="public/assets"), name="assets")
 
 with open('serverinfo.json', 'r') as f:
     server_info = json.load(f)
@@ -152,6 +155,20 @@ async def get_repository_file(file_hash: str):
 
     return Response(content=content, media_type="application/zip")
 
+@app.get("/assets/{filepath:path}")
+def serve_assets(filepath: str):
+    response = FileResponse(f"public/assets/{filepath}")
+    if filepath.endswith('.js'):
+        response.headers['Content-Type'] = 'application/javascript'
+    return response
+
+@app.get('/thumbnail')
+async def get_thumbnail():
+    file_path = Path('thumbnail')
+    if file_path.exists():
+        return FileResponse(file_path, media_type='image/png')
+    else:
+        return JSONResponse(status_code=404, content={"message": "Thumbnail not found"})
 
 if __name__ == '__main__':
     import uvicorn
