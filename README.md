@@ -74,8 +74,9 @@ Basic server settings are managed in `serverinfo.json`.
 ```sh
 pip install -r requirements.txt
 ```
+2. .envの編集 Sonolusのバージョン
 
-2. サーバーの起動:
+3. サーバーの起動:
 ```sh
 python main.py
 ```
